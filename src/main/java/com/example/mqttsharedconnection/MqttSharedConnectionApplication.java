@@ -17,9 +17,12 @@ public class MqttSharedConnectionApplication {
     SpringApplication.run(MqttSharedConnectionApplication.class, args);
   }
 
+  @Lazy
   @Bean
   CommandLineRunner publishMessage(@Lazy MqttGateway gateway) {
-    log.info("Publishing a message to MQTT Broker...");
-    return args -> gateway.publish("{ \"framework\": \"Spring Integration\" }", "topic1");
+    return args -> {
+      log.info("Publishing a message to MQTT Broker...");
+      gateway.publish("{ \"framework\": \"Spring Integration\" }", "topic1");
+    };
   }
 }
